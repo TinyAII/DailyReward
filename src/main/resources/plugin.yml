@@ -1,0 +1,21 @@
+name: DailyReward
+version: 1.0.0
+main: nl.tinyaii.dailyreward.DailyRewardPlugin
+api-version: 1.16
+author: TinyAII
+description: 每日签到 - 连签递增/7天大奖/补签卡/里程碑/双模式，零依赖
+website: https://github.com/TinyAII
+softdepend: [Economy]
+
+commands:
+  签到:
+    description: 每日签到主命令
+    usage: /签到 [信息|排行]
+
+permissions:
+  daily.use:
+    description: 签到/查询/排行
+    default: true
+  daily.admin:
+    description: 管理命令（给卡/重置/重载）
+    default: op
