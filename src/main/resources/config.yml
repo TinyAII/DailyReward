@@ -1,0 +1,101 @@
+# DailyReward 每日签到 配置
+
+settings:
+  # 签到模式：
+  #   date   = 自然日签到（每日0点后首次签到，默认）
+  #   online = 在线时长达标签到（当日累计在线满 N 分钟可签）
+  mode: date
+  # online 模式：当日要求在线分钟数
+  online-minutes: 30
+
+# 连签倍率：奖励 = 基础 × (1 + (连签-1) × step)，第 cycle-day 天翻倍
+streak:
+  step: 0.1          # 每多连1天 +10%
+  cycle-days: 7      # 循环周期（第7天大奖日翻倍）
+
+# 补签卡：断签时可补昨天及以内的缺口（每缺口耗1张）
+makeup:
+  max-backfill-days: 3   # 最多倒补几天（防无限倒补）
+  cost: 0                # 金币购买价（>0 时 /签到 补签 可花金币买卡；0=仅管理员发放/里程碑赠送）
+
+# 里程碑（累计签到天数，达成后 /签到 领取）
+milestones: [30, 100, 365]
+
+# 奖励表（cycle-day 1~7 的基础奖励；金币需装 Economy 插件）
+rewards:
+  day-1:
+    money: 50
+    items:
+      - material: BREAD
+        amount: 8
+  day-2:
+    money: 60
+    items:
+      - material: COOKED_BEEF
+        amount: 4
+  day-3:
+    money: 70
+    items:
+      - material: IRON_INGOT
+        amount: 2
+  day-4:
+    money: 80
+    items:
+      - material: EXPERIENCE_BOTTLE
+        amount: 4
+  day-5:
+    money: 90
+    items:
+      - material: GOLD_INGOT
+        amount: 2
+  day-6:
+    money: 100
+    items:
+      - material: DIAMOND
+        amount: 1
+  day-7:
+    money: 250        # 大奖日：基础×2 后实际发 500
+    items:
+      - material: DIAMOND
+        amount: 3
+      - material: GOLDEN_APPLE
+        amount: 1
+    commands:
+      - "give {player} minecraft:diamond_block 1"
+
+# 里程碑奖励（累计签到达标后领取一次）
+milestone-rewards:
+  "30":
+    money: 300
+    cards: 2
+    items:
+      - material: DIAMOND
+        amount: 5
+  "100":
+    money: 1000
+    cards: 5
+    items:
+      - material: NETHERITE_INGOT
+        amount: 1
+  "365":
+    money: 5000
+    cards: 10
+    commands:
+      - "give {player} minecraft:dragon_head 1"
+
+messages:
+  prefix: "&7[&6签到&7] &r"
+  no-permission: "&c你没有权限这么做。"
+  success: "&a签到成功！连签 &e{streak} &a天，累计 &e{total} &a天。"
+  already: "&c今天已经签过啦，明天再来～"
+  need-online-time: "&c今日在线时长不足 &e{minutes} &c分钟（当前 &e{current}&c）。"
+  streak-broken: "&e昨天没签到，连签已重置为 1 天。可用补签卡补救（当前 {cards} 张）。"
+  card-used: "&a已消耗 1 张补签卡补回昨天，连签恢复！当前补签卡 {cards} 张。"
+  no-card: "&c没有补签卡了。{buy_hint}"
+  buy-hint: "&7输入 &e/签到 补签 &7花 {cost} {currency} 购买一张。"
+  bought-card: "&a花费 {cost} {currency} 购买补签卡成功，已自动补签！剩余 {cards} 张。"
+  cannot-afford: "&c余额不足（需 {cost} {currency}），无法购买补签卡。"
+  milestone-done: "&6里程碑达成！累计签到 {days} 天，输入 /签到 领取奖励。"
+  milestone-claimed-all: "&a里程碑奖励已全部领取，继续加油！"
+  info: "&7连签: &e{streak}天 &7| 累计: &e{total}天 &7| 补签卡: &e{cards}张"
+  reloaded: "&a配置已重载。"
